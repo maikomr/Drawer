@@ -7,8 +7,10 @@ import ui.VistaPrincipal;
 public class ControladorPrincipal {
     
     private VistaPrincipal vistaPrincipal;
-    private Tablero tablero;
-    private ControladorTablero controladorTablero;
+    private Tablero tableroBresenham;
+    private Tablero tableroDDA;
+    private ControladorTablero controladorTableroBresenham;
+    private ControladorTablero controladorTableroDDA;
     
     public ControladorPrincipal() {
         construirComponentes();
@@ -17,10 +19,15 @@ public class ControladorPrincipal {
     private void construirComponentes() {
         int filas = 18;
         int columnas = 18;
-        tablero = new Tablero(filas, columnas);
+        tableroBresenham = new Tablero(filas, columnas);
+        tableroDDA = new Tablero(filas, columnas);
         vistaPrincipal = new VistaPrincipal();
-        Tablero2D tablero2D = vistaPrincipal.getTablero2D();
-        controladorTablero = new ControladorTablero(tablero, tablero2D);
+        
+        Tablero2D tableroBresenham2D = vistaPrincipal.getTableroBresenham2D();
+        Tablero2D tableroDDA2D = vistaPrincipal.getTableroDDA2D();
+        
+        controladorTableroBresenham = new ControladorTablero(tableroBresenham, tableroBresenham2D);
+        controladorTableroDDA = new ControladorTablero(tableroDDA, tableroDDA2D);
     }
     
     public void iniciar() {
