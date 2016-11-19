@@ -18,8 +18,8 @@ public class ControladorPrincipal {
         tablero = new Tablero(filas, columnas);
         vistaPrincipal = new VistaPrincipal();
         vistaPrincipal.setVisible(true);
-        tablero.subscribe(vistaPrincipal.getTablero2D());
-        tablero.notifyAllObservers();
+        tablero.addObserver(vistaPrincipal.getTablero2D());
+        tablero.notifyObservers();
         vistaPrincipal.repaint();
     }
     

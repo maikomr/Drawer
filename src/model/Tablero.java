@@ -1,20 +1,15 @@
 package model;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
 public class Tablero extends Observable {
 
     private final Pixel[][] pixeles;
     private final int filas;
     private final int columnas;
-    private List<Observer> observers;
     
     public Tablero(int filas, int columnas) {
-        observers = new ArrayList<>();
         this.filas = filas;
         this.columnas = columnas;
         pixeles = new Pixel[filas][columnas];
@@ -28,22 +23,13 @@ public class Tablero extends Observable {
                 pixeles[fila][columna] = pixel;
             }
         }
-        this.notifyAllObservers();
+        setChanged();
     }
     
     public void actualizarPixel(int fila, int columna, Color color) {
         pixeles[fila][columna].setColor(color);
-        notifyAllObservers();
-    }
-    
-    public void subscribe(Observer observer) {
-        observers.add(observer);
-    }
-    
-    public void notifyAllObservers() {
-        for (Observer observer : observers) {
-            observer.update(this, null);
-        }
+        setChanged();
+        notifyObservers(new CambioPixel(fila, columna, color));
     }
     
     public Pixel[][] getPixeles() {

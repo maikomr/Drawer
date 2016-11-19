@@ -36,6 +36,5 @@ public class Pixel2D extends JComponent {
         g.setColor(Color.BLACK);
         g.drawRect(getX(), getY(), size.width, size.height); // color border with BLACK lines
         g.setColor(graphicsColor);
-        System.out.println(size);
     }
 }
