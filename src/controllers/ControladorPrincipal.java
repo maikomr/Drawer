@@ -1,12 +1,14 @@
 package controllers;
 
 import model.Tablero;
+import ui.Tablero2D;
 import ui.VistaPrincipal;
 
 public class ControladorPrincipal {
     
     private VistaPrincipal vistaPrincipal;
     private Tablero tablero;
+    private ControladorTablero controladorTablero;
     
     public ControladorPrincipal() {
         construirComponentes();
@@ -17,10 +19,12 @@ public class ControladorPrincipal {
         int columnas = 18;
         tablero = new Tablero(filas, columnas);
         vistaPrincipal = new VistaPrincipal();
+        Tablero2D tablero2D = vistaPrincipal.getTablero2D();
+        controladorTablero = new ControladorTablero(tablero, tablero2D);
+    }
+    
+    public void iniciar() {
         vistaPrincipal.setVisible(true);
-        tablero.addObserver(vistaPrincipal.getTablero2D());
-        tablero.notifyObservers();
-        vistaPrincipal.repaint();
     }
     
     public static void main(String args[]) {
@@ -50,7 +54,7 @@ public class ControladorPrincipal {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ControladorPrincipal();
+                new ControladorPrincipal().iniciar();
             }
         });
     }

@@ -60,4 +60,20 @@ public class Tablero2D extends JPanel implements Observer {
             }
         }
     }
+
+    public Point getUbicacionPixel(Point point) {
+        Point ubicacion = null;
+        if (pixeles2D != null) {
+            int filas = pixeles2D.length;
+            int columnas = pixeles2D[0].length;
+            for (int fila = 0; fila < filas; fila++) {
+                for (int columna = 0; columna < columnas; columna++) {
+                    if(pixeles2D[fila][columna].contiene(point)) {
+                        return new Point(fila,columna);
+                    }
+                }
+            }
+        }
+        return ubicacion;
+    }
 }

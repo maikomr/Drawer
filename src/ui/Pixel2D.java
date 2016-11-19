@@ -3,6 +3,7 @@ package ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import javax.swing.JComponent;
 
 public class Pixel2D extends JComponent {
@@ -36,5 +37,10 @@ public class Pixel2D extends JComponent {
         g.setColor(Color.BLACK);
         g.drawRect(getX(), getY(), size.width, size.height); // color border with BLACK lines
         g.setColor(graphicsColor);
+    }
+
+    boolean contiene(Point point) {
+        return (point.x > getX() && point.x < getX() + getWidth()) 
+                && (point.y > getY() && point.y < getY() + getHeight());
     }
 }
