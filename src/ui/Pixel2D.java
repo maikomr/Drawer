@@ -32,7 +32,7 @@ public class Pixel2D extends JComponent {
     public void paintComponent(Graphics g) {
         Dimension size = getSize();
         Color graphicsColor = g.getColor();
-        g.setColor(DEFAULT_PIXEL_COLOR);
+        g.setColor(color);
         g.fillRect(getX(), getY(), size.width, size.height); // color grid
         g.setColor(Color.BLACK);
         g.drawRect(getX(), getY(), size.width, size.height); // color border with BLACK lines

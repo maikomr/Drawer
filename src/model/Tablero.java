@@ -1,9 +1,10 @@
 package model;
 
+import components.GraphicContext;
 import java.awt.Color;
 import java.util.Observable;
 
-public class Tablero extends Observable {
+public class Tablero extends Observable implements GraphicContext {
 
     private final Pixel[][] pixeles;
     private final int filas;
@@ -42,5 +43,15 @@ public class Tablero extends Observable {
     
     public int getColumnas() {
         return columnas;
+    }
+
+    @Override
+    public void putPixel(int x, int y) {
+        actualizarPixel(x, y, Color.black);
+    }
+
+    public void limpiar() {
+        inicializarPixeles();
+        notifyObservers();
     }
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import algorithms.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,10 +11,14 @@ public class ControladorTablero implements MouseListener {
     
     private final Tablero modelo;
     private final Tablero2D vista;
+    private Point inicio;
+    private Point fin;
+    private Graphics estrategiaDeDibujo;
 
-    ControladorTablero(Tablero tablero, Tablero2D tablero2D) {
+    ControladorTablero(Tablero tablero, Tablero2D tablero2D, Graphics estrategiaDeDibujo) {
         this.modelo = tablero;
         this.vista = tablero2D;
+        this.estrategiaDeDibujo = estrategiaDeDibujo;
         conectar();
     }
 
@@ -27,15 +32,29 @@ public class ControladorTablero implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         Point ubicacion = vista.getUbicacionPixel(e.getPoint());
         if (ubicacion != null) {
-            System.out.println("Se ha hecho click en el pixel: " + ubicacion);
+            if(inicio == null) {
+                inicio = new Point(ubicacion);
+            } else if(fin == null) {
+                fin = new Point(ubicacion);
+                estrategiaDeDibujo.drawLine(inicio, fin, modelo);
+                inicio = null;
+                fin = null;
+            }
         }
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+//        Point ubicacion = vista.getUbicacionPixel(e.getPoint());
+//        inicio = new Point(ubicacion);
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+//        Point ubicacion = vista.getUbicacionPixel(e.getPoint());
+//        fin = new Point(ubicacion);
+//        estrategiaDeDibujo.drawLine(inicio, fin, modelo);
+    }
 
     @Override
     public void mouseEntered(MouseEvent e) {}

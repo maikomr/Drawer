@@ -1,5 +1,7 @@
 package controllers;
 
+import algorithms.Bresenham;
+import algorithms.Graphics;
 import model.Tablero;
 import ui.Tablero2D;
 import ui.VistaPrincipal;
@@ -26,8 +28,10 @@ public class ControladorPrincipal {
         Tablero2D tableroBresenham2D = vistaPrincipal.getTableroBresenham2D();
         Tablero2D tableroDDA2D = vistaPrincipal.getTableroDDA2D();
         
-        controladorTableroBresenham = new ControladorTablero(tableroBresenham, tableroBresenham2D);
-        controladorTableroDDA = new ControladorTablero(tableroDDA, tableroDDA2D);
+        Graphics estrategiaBresenham = new Bresenham();
+        
+        controladorTableroBresenham = new ControladorTablero(tableroBresenham, tableroBresenham2D, estrategiaBresenham);
+        controladorTableroDDA = new ControladorTablero(tableroDDA, tableroDDA2D, estrategiaBresenham);
     }
     
     public void iniciar() {

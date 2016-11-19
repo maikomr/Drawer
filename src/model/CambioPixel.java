@@ -25,4 +25,9 @@ public class CambioPixel {
     public Color getColor() {
         return color;
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%d,%d) %s", fila, columna, color);
+    }
 }

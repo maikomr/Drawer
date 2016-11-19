@@ -7,14 +7,15 @@ import java.awt.Rectangle;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
+import model.CambioPixel;
 import model.Pixel;
 import model.Tablero;
 
 public class Tablero2D extends JPanel implements Observer {
 
     private Pixel2D[][] pixeles2D;
-    private final int anchoPixel = 10;
-    private final int altoPixel = 10;
+    private final int anchoPixel = 20;
+    private final int altoPixel = 20;
 
     public Tablero2D() {
         super();
@@ -36,7 +37,12 @@ public class Tablero2D extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof Tablero) {
+        if (arg != null && arg instanceof CambioPixel) {
+            CambioPixel cambioPixel = (CambioPixel) arg;
+            Pixel2D pixel2D = pixeles2D[cambioPixel.getFila()][cambioPixel.getColumna()];
+            pixel2D.setColor(cambioPixel.getColor());
+            repaint();
+        } else if (o instanceof Tablero) {
             Tablero tablero = (Tablero) o;
             actualizarTablero(tablero);
             repaint();
