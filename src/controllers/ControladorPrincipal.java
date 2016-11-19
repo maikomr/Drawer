@@ -3,11 +3,16 @@ package controllers;
 import algorithms.Bresenham;
 import algorithms.DDA;
 import algorithms.DrawingStrategy;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import model.Tablero;
 import ui.Tablero2D;
 import ui.VistaPrincipal;
 
-public class ControladorPrincipal {
+public class ControladorPrincipal implements ActionListener {
     
     private VistaPrincipal vistaPrincipal;
     private Tablero tableroBresenham;
@@ -34,6 +39,9 @@ public class ControladorPrincipal {
         controladorTableros = new ControladorTableros();
         controladorTableros.conectar(tableroBresenham, tableroBresenham2D, estrategiaBresenham);
         controladorTableros.conectar(tableroDDA, tableroDDA2D, estrategiaDDA);
+        
+        JButton btnCambiarColor = vistaPrincipal.getBotonCambiarColor();
+        btnCambiarColor.addActionListener(this);
     }
     
     public void iniciar() {
@@ -70,5 +78,21 @@ public class ControladorPrincipal {
                 new ControladorPrincipal().iniciar();
             }
         });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JButton) {
+            JButton boton = (JButton) e.getSource();
+            if (boton.getName().equals("btnCambiarColor")) {
+                Color nuevoColor = JColorChooser.showDialog(
+                     vistaPrincipal,
+                     "Elige un color",
+                     controladorTableros.getColorActual());
+                if (nuevoColor != null) {
+                    controladorTableros.setColorActual(nuevoColor);
+                }
+            }
+        }
     }
 }

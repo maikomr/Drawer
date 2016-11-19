@@ -9,10 +9,12 @@ public class Tablero extends Observable implements GraphicContext {
     private final Pixel[][] pixeles;
     private final int filas;
     private final int columnas;
+    private Color colorActual;
     
     public Tablero(int filas, int columnas) {
         this.filas = filas;
         this.columnas = columnas;
+        colorActual = Color.black;
         pixeles = new Pixel[filas][columnas];
         inicializarPixeles();
     }
@@ -45,9 +47,17 @@ public class Tablero extends Observable implements GraphicContext {
         return columnas;
     }
 
+    public Color getColorActual() {
+        return colorActual;
+    }
+
+    public void setColorActual(Color colorActual) {
+        this.colorActual = colorActual;
+    }
+
     @Override
     public void putPixel(int x, int y) {
-        actualizarPixel(x, y, Color.black);
+        actualizarPixel(x, y, colorActual);
     }
 
     public void limpiar() {

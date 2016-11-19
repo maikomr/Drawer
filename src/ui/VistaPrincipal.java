@@ -40,6 +40,7 @@ public class VistaPrincipal extends JFrame {
         panelHerramientas.setLayout(new FlowLayout(FlowLayout.RIGHT));
         
         botonCambiarColor = new JButton("Cambiar Color");
+        botonCambiarColor.setName("btnCambiarColor");
         panelHerramientas.add(botonCambiarColor);
         
         add(panelHerramientas, BorderLayout.EAST);
@@ -51,5 +52,9 @@ public class VistaPrincipal extends JFrame {
 
     public Tablero2D getTableroDDA2D() {
         return tableroDDA;
+    }
+
+    public JButton getBotonCambiarColor() {
+        return botonCambiarColor;
     }
 }

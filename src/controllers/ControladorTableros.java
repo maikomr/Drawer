@@ -1,6 +1,7 @@
 package controllers;
 
 import algorithms.DrawingStrategy;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,12 +16,14 @@ public class ControladorTableros implements MouseListener {
     private final List<Tablero2D> tableros2D;
     private final List<DrawingStrategy> estrategiasDeDibujo;
     private Point inicio;
-    private Point fin;    
+    private Point fin;
+    private Color colorActual;
 
     ControladorTableros() {
         tableros = new ArrayList<>();
         tableros2D = new ArrayList<>();
         estrategiasDeDibujo = new ArrayList<>();
+        colorActual = Color.black;
     }
     
     public void conectar(Tablero tablero, Tablero2D tablero2D, DrawingStrategy estrategiaDeDibujo) {
@@ -32,8 +35,17 @@ public class ControladorTableros implements MouseListener {
         tablero2D.addMouseListener(this);
     }
     
+    public Color getColorActual() {
+        return colorActual;
+    }
+
+    public void setColorActual(Color colorActual) {
+        this.colorActual = colorActual;
+    }
+    
     private void dibujarLineas() {
         for (Tablero tablero : tableros) {
+            tablero.setColorActual(colorActual);
             int indice = tableros.indexOf(tablero);
             DrawingStrategy estrategiaDeDibujo = estrategiasDeDibujo.get(indice);
             estrategiaDeDibujo.drawLine(inicio, fin, tablero);
@@ -76,5 +88,5 @@ public class ControladorTableros implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {}
-    
+
 }
