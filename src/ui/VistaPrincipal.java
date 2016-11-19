@@ -7,12 +7,13 @@ import java.awt.HeadlessException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class VistaPrincipal extends JFrame {
 
     private Tablero2D tableroBresenham2D;
-    private Tablero2D tableroDDA;
+    private Tablero2D tableroDDA2D;
     private JButton botonCambiarColor;
     
     public VistaPrincipal() throws HeadlessException {
@@ -29,10 +30,19 @@ public class VistaPrincipal extends JFrame {
         panelTableros.setLayout(new BoxLayout(panelTableros, BoxLayout.X_AXIS));
         
         tableroBresenham2D = new Tablero2D();
-        tableroDDA = new Tablero2D();
+        tableroDDA2D = new Tablero2D();
+        JPanel panelTableroBresenham2D = new JPanel();
+        panelTableroBresenham2D.setLayout(new BorderLayout());
+        panelTableroBresenham2D.add(new JLabel("Algoritmo Bresenham"), BorderLayout.NORTH);
+        panelTableroBresenham2D.add(tableroBresenham2D, BorderLayout.CENTER);
         
-        panelTableros.add(tableroBresenham2D);
-        panelTableros.add(tableroDDA);
+        JPanel panelTableroDDA2D = new JPanel();
+        panelTableroDDA2D.setLayout(new BorderLayout());
+        panelTableroDDA2D.add(new JLabel("Algoritmo DDA"), BorderLayout.NORTH);
+        panelTableroDDA2D.add(tableroDDA2D, BorderLayout.CENTER);
+        
+        panelTableros.add(panelTableroBresenham2D);
+        panelTableros.add(panelTableroDDA2D);
         
         add(panelTableros, BorderLayout.CENTER);
         
@@ -51,7 +61,7 @@ public class VistaPrincipal extends JFrame {
     }
 
     public Tablero2D getTableroDDA2D() {
-        return tableroDDA;
+        return tableroDDA2D;
     }
 
     public JButton getBotonCambiarColor() {

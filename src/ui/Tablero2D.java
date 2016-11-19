@@ -54,8 +54,8 @@ public class Tablero2D extends JPanel implements Observer {
         int columnas = tablero.getColumnas();
         Pixel[][] pixeles = tablero.getPixeles();
         pixeles2D = new Pixel2D[filas][columnas];
-        for (int fila = 0; fila < filas; fila++) {
-            for (int columna = 0; columna < columnas; columna++) {
+        for (int fila = getX(); fila < filas; fila++) {
+            for (int columna = getY(); columna < columnas; columna++) {
                 Pixel pixel = pixeles[fila][columna];
                 Pixel2D pixel2D = new Pixel2D(pixel.getColor());
                 Rectangle bounds = new Rectangle(
