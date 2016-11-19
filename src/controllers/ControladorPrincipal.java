@@ -12,8 +12,7 @@ public class ControladorPrincipal {
     private VistaPrincipal vistaPrincipal;
     private Tablero tableroBresenham;
     private Tablero tableroDDA;
-    private ControladorTablero controladorTableroBresenham;
-    private ControladorTablero controladorTableroDDA;
+    private ControladorTableros controladorTableros;
     
     public ControladorPrincipal() {
         construirComponentes();
@@ -32,8 +31,9 @@ public class ControladorPrincipal {
         DrawingStrategy estrategiaBresenham = new Bresenham();
         DrawingStrategy estrategiaDDA = new DDA();
         
-        controladorTableroBresenham = new ControladorTablero(tableroBresenham, tableroBresenham2D, estrategiaBresenham);
-        controladorTableroDDA = new ControladorTablero(tableroDDA, tableroDDA2D, estrategiaDDA);
+        controladorTableros = new ControladorTableros();
+        controladorTableros.conectar(tableroBresenham, tableroBresenham2D, estrategiaBresenham);
+        controladorTableros.conectar(tableroDDA, tableroDDA2D, estrategiaDDA);
     }
     
     public void iniciar() {
