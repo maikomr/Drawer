@@ -1,6 +1,6 @@
 package controllers;
 
-import algorithms.Graphics;
+import algorithms.DrawingStrategy;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,9 +13,9 @@ public class ControladorTablero implements MouseListener {
     private final Tablero2D vista;
     private Point inicio;
     private Point fin;
-    private Graphics estrategiaDeDibujo;
+    private DrawingStrategy estrategiaDeDibujo;
 
-    ControladorTablero(Tablero tablero, Tablero2D tablero2D, Graphics estrategiaDeDibujo) {
+    ControladorTablero(Tablero tablero, Tablero2D tablero2D, DrawingStrategy estrategiaDeDibujo) {
         this.modelo = tablero;
         this.vista = tablero2D;
         this.estrategiaDeDibujo = estrategiaDeDibujo;
@@ -26,6 +26,10 @@ public class ControladorTablero implements MouseListener {
         modelo.addObserver(vista);
         modelo.notifyObservers();
         vista.addMouseListener(this);
+    }
+
+    public void setEstrategiaDeDibujo(DrawingStrategy estrategiaDeDibujo) {
+        this.estrategiaDeDibujo = estrategiaDeDibujo;
     }
 
     @Override
