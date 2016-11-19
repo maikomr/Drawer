@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JPanel;
 import model.Tablero;
 import ui.Tablero2D;
 import ui.VistaPrincipal;
@@ -42,6 +43,9 @@ public class ControladorPrincipal implements ActionListener {
         
         JButton btnCambiarColor = vistaPrincipal.getBotonCambiarColor();
         btnCambiarColor.addActionListener(this);
+        
+        tableroBresenham.addObserver(vistaPrincipal.getPanelInspeccionBresenham());
+        tableroBresenham.addObserver(vistaPrincipal.getPanelInspeccionDDA());
     }
     
     public void iniciar() {

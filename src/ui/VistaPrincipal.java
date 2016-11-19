@@ -15,6 +15,8 @@ public class VistaPrincipal extends JFrame {
     private Tablero2D tableroBresenham2D;
     private Tablero2D tableroDDA2D;
     private JButton botonCambiarColor;
+    private PanelInspeccion panelInspeccionBresenham;
+    private PanelInspeccion panelInspeccionDDA;
     
     public VistaPrincipal() throws HeadlessException {
         super("Drawer");
@@ -31,15 +33,22 @@ public class VistaPrincipal extends JFrame {
         
         tableroBresenham2D = new Tablero2D();
         tableroDDA2D = new Tablero2D();
+        
+        panelInspeccionBresenham = new PanelInspeccion();
+        
+        panelInspeccionDDA = new PanelInspeccion();
+        
         JPanel panelTableroBresenham2D = new JPanel();
         panelTableroBresenham2D.setLayout(new BorderLayout());
         panelTableroBresenham2D.add(new JLabel("Algoritmo Bresenham"), BorderLayout.NORTH);
         panelTableroBresenham2D.add(tableroBresenham2D, BorderLayout.CENTER);
+        panelTableroBresenham2D.add(panelInspeccionBresenham, BorderLayout.SOUTH);
         
         JPanel panelTableroDDA2D = new JPanel();
         panelTableroDDA2D.setLayout(new BorderLayout());
         panelTableroDDA2D.add(new JLabel("Algoritmo DDA"), BorderLayout.NORTH);
         panelTableroDDA2D.add(tableroDDA2D, BorderLayout.CENTER);
+        panelTableroDDA2D.add(panelInspeccionDDA, BorderLayout.SOUTH);
         
         panelTableros.add(panelTableroBresenham2D);
         panelTableros.add(panelTableroDDA2D);
@@ -66,5 +75,13 @@ public class VistaPrincipal extends JFrame {
 
     public JButton getBotonCambiarColor() {
         return botonCambiarColor;
+    }
+
+    public PanelInspeccion getPanelInspeccionBresenham() {
+        return panelInspeccionBresenham;
+    }
+
+    public PanelInspeccion getPanelInspeccionDDA() {
+        return panelInspeccionDDA;
     }
 }

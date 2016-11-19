@@ -28,6 +28,6 @@ public class CambioPixel {
 
     @Override
     public String toString() {
-        return String.format("(%d,%d) %s", fila, columna, color);
+        return String.format("(%d,%d)", fila, columna);
     }
 }
