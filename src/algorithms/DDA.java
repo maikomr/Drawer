@@ -32,29 +32,35 @@ public class DDA implements DrawingStrategy {
             context.putPixel(Math.round(x), Math.round(y));
         }
     }
-    
+
     @Override
     public void drawCircle(Point center, int radius, GraphicContext context) {
         drawCircle(center.x, center.y, radius, context);
     }
-    
+
     @Override
     public void drawCircle(int xc, int yc, int radius, GraphicContext context) {
-        // Determinar el angulo de variaci?n
-        double theta = Math.toRadians(0);
-        // Punto inicial
-        int x = radius;
-        int y = 0;
-        // Mientras el angulo no exceda a 360 dibujar puntos
-        while (theta <= 2 * Math.PI) {
-            context.putPixel(x + xc, y + yc);
-            // Incrementar el ?ngulo
-            theta += Math.toRadians(1);
-            // C?lcular los valores x e y de forma par?metrica
-            double xd = radius * Math.cos(theta);
-            x = (int) Math.floor(xd);
-            double yd = radius * Math.sin(theta);
-            y = (int) Math.floor(yd);
+        int tx, ty;
+        double dt, cc, ss, x, y, aux;
+        dt = (double) 1 / radius;
+        cc = Math.cos(dt);
+        ss = Math.sin(dt);
+        x = 0;
+        y = radius;
+        while (y >= Math.abs(x)) {
+            tx = (int) Math.round(x);
+            ty = (int) Math.round(y);
+            context.putPixel(xc + tx, yc + ty);
+            context.putPixel(xc - tx, yc + ty);
+            context.putPixel(xc + tx, yc - ty);
+            context.putPixel(xc - tx, yc - ty);
+            context.putPixel(xc + ty, yc + tx);
+            context.putPixel(xc + ty, yc - tx);
+            context.putPixel(xc - ty, yc + tx);
+            context.putPixel(xc - ty, yc - tx);
+            aux = x;
+            x = x * cc - y * ss;
+            y = y * cc + aux * ss;
         }
     }
 }
