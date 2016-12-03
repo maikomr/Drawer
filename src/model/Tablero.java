@@ -30,9 +30,11 @@ public class Tablero extends Observable implements GraphicContext {
     }
     
     public void actualizarPixel(int fila, int columna, Color color) {
-        pixeles[fila][columna].setColor(color);
-        setChanged();
-        notifyObservers(new CambioPixel(fila, columna, color));
+        if (fila >= 0 && fila < filas && columna >= 0 && columna < columnas) {
+            pixeles[fila][columna].setColor(color);
+            setChanged();
+            notifyObservers(new CambioPixel(fila, columna, color));
+        }
     }
     
     public Pixel[][] getPixeles() {
