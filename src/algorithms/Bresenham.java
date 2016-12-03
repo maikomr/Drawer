@@ -67,7 +67,7 @@ public class Bresenham implements DrawingStrategy {
             }
         }
     }
-    
+
     @Override
     public void drawCircle(Point center, int radius, GraphicContext context) {
         drawCircle(center.x, center.y, radius, context);
@@ -75,32 +75,38 @@ public class Bresenham implements DrawingStrategy {
 
     @Override
     public void drawCircle(int xc, int yc, int r, GraphicContext context) {
-        //// Punto inicial del círculo
         int x = 0;
         int y = r;
-        
-        // Cálcular el parámetro inicial de decisión
-        int pk = 1 - r;
+        int d = 1 - r;
+        int e = 3;
+        int se = -2 * r + 5;
+        drawCircle(xc, yc, x, y, context);
 
-        // verificar el pk para determinar las posiciones de pixel siguuientes
-        while (x <= y) {
-            context.putPixel(xc + x, yc + y);
-            context.putPixel(xc - x, yc + y);
-            context.putPixel(xc + x, yc - y);
-            context.putPixel(xc - x, yc - y);
-            context.putPixel(yc + y, xc + x);
-            context.putPixel(yc - y, xc + x);
-            context.putPixel(yc + y, xc - x);
-            context.putPixel(yc - y, xc - x);
-
-            if (pk < 0) {
-                pk += 2 * (x + 1) + 1;
-                x++;
-            } else { // pk>=0
-                pk += 2 * (x + 1) + 1 - 2 * (y - 1);
-                x++;
-                y--;
+        while (y > x) {
+            if (d < 0) { // east
+                d = d + e;
+                e = e + 2;
+                se = se + 2;
+                x = x + 1;
+            } else { // south east
+                d = d + se;
+                e = e + 2;
+                se = se + 4;
+                x = x + 1;
+                y = y - 1;
             }
+            drawCircle(xc, yc, x, y, context);
         }
+    }
+
+    private void drawCircle(int xc, int yc, int x, int y, GraphicContext pM) {
+        pM.putPixel(xc + x, yc + y);
+        pM.putPixel(xc + y, yc + x);
+        pM.putPixel(xc + x, yc - y);
+        pM.putPixel(xc - y, yc + x);
+        pM.putPixel(xc - x, yc - y);
+        pM.putPixel(xc - y, yc - x);
+        pM.putPixel(xc - x, yc + y);
+        pM.putPixel(xc + y, yc - x);
     }
 }

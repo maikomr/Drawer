@@ -49,12 +49,19 @@ public class ControladorTableros implements MouseListener {
             tablero.setColorActual(colorActual);
             int indice = tableros.indexOf(tablero);
             DrawingStrategy estrategiaDeDibujo = estrategiasDeDibujo.get(indice);
+            int radio = getDistancia(inicio, fin);
+            System.out.println(String.format("La distancia es: %d", radio));
             Date tiempoInicial = new Date();
-            estrategiaDeDibujo.drawLine(inicio, fin, tablero);
+            estrategiaDeDibujo.drawCircle(inicio, radio, tablero);
             Date tiempoFinal = new Date();
             long diferencia = tiempoFinal.getTime() - tiempoInicial.getTime();
             System.out.println(String.format("Diferencia de tiempo para %s: %d", estrategiaDeDibujo, diferencia));
         }
+    }
+    
+    private int getDistancia(Point inicio, Point fin) {
+        int distancia = (int) Math.sqrt((Math.pow(inicio.x - fin.x, 2)) + (Math.pow(inicio.y - fin.y, 2)));
+        return distancia;
     }
 
     @Override
