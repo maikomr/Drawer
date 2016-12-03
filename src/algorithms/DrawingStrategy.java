@@ -9,4 +9,6 @@ import java.awt.Point;
 public interface DrawingStrategy {
     void drawLine(Point start, Point end, GraphicContext context);
     void drawLine(int x0, int y0, int x1, int y1, GraphicContext context);
+    void drawCircle(Point center, int radius, GraphicContext context);
+    void drawCircle(int xc, int yc, int r, GraphicContext context);
 }
