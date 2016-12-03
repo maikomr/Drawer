@@ -1,195 +1,70 @@
 package algorithms;
 
-import components.GraphicContext;
+import java.awt.Point;
 
 /**
  *
  * @author Maiko Morales <maiko.moralesr@gmail.com>
  */
-public class Bresenham extends AbstractDrawingStrategy {
+public class Bresenham implements DrawingStrategy {
 
-    protected void drawLineCase1(int x1, int y1, int x2, int dx, int dy, GraphicContext context) {
-        int d = 2 * dy - dx; // start
-
-        int e = 2 * dy;
-        int ne = 2 * (dy - dx);
-
-        int x = x1;
-        int y = y1;
-        context.putPixel(x, y);
-
-        while (x < x2) {
-            if (d <= 0) { // east
-                d = d + e;
-                x = x + 1;
-            } else { // northeast
-                d = d + ne;
-                x = x + 1;
-                y = y + 1;
-            }
-            context.putPixel(x, y);
-        }
+    @Override
+    public void drawLine(Point start, Point end, GraphicContext context) {
+        drawLine(start.x, start.y, end.x, end.y, context);
     }
 
-    protected void drawLineCase2(int x1, int y1, int y2, int dx, int dy, GraphicContext context) {
-        int d = dy - 2 * dx; // start
-
-        int n = -2 * dx;
-        int ne = 2 * (dy - dx);
-
-        int x = x1;
-        int y = y1;
-        context.putPixel(x, y);
-
-        while (y < y2) {
-            if (d <= 0) { // northeast
-                d = d + ne;
-                x = x + 1;
-                y = y + 1;
-            } else { // north
-                d = d + n;
-                y = y + 1;
-            }
-            context.putPixel(x, y);
-        }
-    }
-
-    protected void drawLineCase3(int x1, int y1, int y2, int dx, int dy, GraphicContext context) {
-        int d = -(2 * dx + dy); // start
-
-        int n = -2 * dx;
-        int nw = -2 * (dx + dy);
-
-        int x = x1;
-        int y = y1;
-        context.putPixel(x, y);
-
-        while (y < y2) {
-            if (d >= 0) {
-                d = d + nw;
-                x = x - 1;
-                y = y + 1;
-            } else {
-                d = d + n;
-                y = y + 1;
-            }
-            context.putPixel(x, y);
-        }
-    }
-
-    protected void drawLineCase4(int x1, int y1, int x2, int dx, int dy, GraphicContext context) {
-        int d = -(dx + 2 * dy); // start
-
-        int w = -2 * dy;
-        int nw = -2 * (dx + dy);
-
-        int x = x1;
-        int y = y1;
-        context.putPixel(x, y);
-
-        while (x > x2) {
-            if (d <= 0) { // northwest
-                d = d + nw;
-                x = x - 1;
-                y = y + 1;
-            } else { // west
-                d = d + w;
-                x = x - 1;
-            }
-            context.putPixel(x, y);
-        }
-    }
-
-    protected void drawLineCase5(int x1, int y1, int x2, int dx, int dy, GraphicContext context) {
-        int d = -2 * dy + dx; // start
-
-        int w = -2 * dy;
-        int sw = -2 * (dy - dx);
-
-        int x = x1;
-        int y = y1;
-        context.putPixel(x, y);
-
-        while (x > x2) {
-            if (d >= 0) { // southwest
-                d = d + sw;
-                x = x - 1;
-                y = y - 1;
-            } else { // west
-                d = d + w;
-                x = x - 1;
-            }
-            context.putPixel(x, y);
-        }
-    }
-
-    protected void drawLineCase6(int x1, int y1, int y2, int dx, int dy, GraphicContext context) {
-        int d = 2 * dx - dy; // start
-
-        int s = 2 * dx;
-        int sw = 2 * (dx - dy);
-
-        int x = x1;
-        int y = y1;
-        context.putPixel(x, y);
-
-        while (y > y2) {
-            if (d <= 0) { // south west
-                d = d + sw;
-                y = y - 1;
-                x = x - 1;
-            } else { // south
-                d = d + s;
-                y = y - 1;
-            }
-            context.putPixel(x, y);
+    @Override
+    public void drawLine(int x0, int y0, int x1, int y1, GraphicContext context) {
+        int x, y, dx, dy, p, incE, incNE, stepx, stepy;
+        dx = x1 - x0;
+        dy = y1 - y0;
+        // determinamos el punto inicial
+        if (dy < 0) {
+            dy = -dy;
+            stepy = -1;
+        } else {
+            stepy = 1;
         }
 
-    }
-
-    protected void drawLineCase7(int x1, int y1, int y2, int dx, int dy, GraphicContext context) {
-        int d = 2 * dx + dy; // start
-
-        int s = 2 * dx;
-        int se = 2 * (dy + dx);
-
-        int x = x1;
-        int y = y1;
-        context.putPixel(x, y);
-
-        while (y > y2) {
-            if (d >= 0) { // south east
-                d = d + se;
-                x = x + 1;
-                y = y - 1;
-            } else { // south
-                d = d + s;
-                y = y - 1;
-            }
-            context.putPixel(x, y);
+        if (dx < 0) {
+            dx = -dx;
+            stepx = -1;
+        } else {
+            stepx = 1;
         }
-    }
 
-    protected void drawLineCase8(int x1, int y1, int x2, int dx, int dy, GraphicContext context) {
-        int d = 2 * dy + dx; // start
-
-        int e = 2 * dy;
-        int se = 2 * (dy + dx);
-
-        int x = x1;
-        int y = y1;
+        x = x0;
+        y = y0;
         context.putPixel(x, y);
 
-        while (x < x2) {
-            if (d <= 0) { // south east
-                d = d + se;
-                x = x + 1;
-                y = y - 1;
-            } else { // east
-                d = d + e;
-                x = x + 1;
+        if (dx > dy) {
+            p = 2 * dy - dx;
+            incE = 2 * dy;
+            incNE = 2 * (dy - dx);
+            while (x != x1) {
+                x = x + stepx;
+                if (p < 0) {
+                    p = p + incE;
+                } else {
+                    y = y + stepy;
+                    p = p + incNE;
+                }
+                context.putPixel(x, y);
             }
-            context.putPixel(x, y);
+        } else {
+            p = 2 * dx - dy;
+            incE = 2 * dx;
+            incNE = 2 * (dx - dy);
+            while (y != y1) {
+                y = y + stepy;
+                if (p < 0) {
+                    p = p + incE;
+                } else {
+                    x = x + stepx;
+                    p = p + incNE;
+                }
+                context.putPixel(x, y);
+            }
         }
     }
 }

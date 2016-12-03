@@ -1,6 +1,6 @@
 package model;
 
-import components.GraphicContext;
+import algorithms.GraphicContext;
 import java.awt.Color;
 import java.util.Observable;
 

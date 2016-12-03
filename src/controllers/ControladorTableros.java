@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Tablero;
 import ui.Tablero2D;
@@ -48,7 +49,11 @@ public class ControladorTableros implements MouseListener {
             tablero.setColorActual(colorActual);
             int indice = tableros.indexOf(tablero);
             DrawingStrategy estrategiaDeDibujo = estrategiasDeDibujo.get(indice);
+            Date tiempoInicial = new Date();
             estrategiaDeDibujo.drawLine(inicio, fin, tablero);
+            Date tiempoFinal = new Date();
+            long diferencia = tiempoFinal.getTime() - tiempoInicial.getTime();
+            System.out.println(String.format("Diferencia de tiempo para %s: %d", estrategiaDeDibujo, diferencia));
         }
     }
 

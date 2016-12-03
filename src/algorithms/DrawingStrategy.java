@@ -1,6 +1,5 @@
 package algorithms;
 
-import components.GraphicContext;
 import java.awt.Point;
 
 /**

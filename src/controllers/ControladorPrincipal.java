@@ -45,7 +45,7 @@ public class ControladorPrincipal implements ActionListener {
         btnCambiarColor.addActionListener(this);
         
         tableroBresenham.addObserver(vistaPrincipal.getPanelInspeccionBresenham());
-        tableroBresenham.addObserver(vistaPrincipal.getPanelInspeccionDDA());
+        tableroDDA.addObserver(vistaPrincipal.getPanelInspeccionDDA());
     }
     
     public void iniciar() {
